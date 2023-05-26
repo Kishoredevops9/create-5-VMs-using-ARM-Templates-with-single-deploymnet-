@@ -1,0 +1,33 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "vmNames": {
+      "type": "array",
+      "defaultValue": [
+        "vm1",
+        "vm2",
+        "vm3",
+        "vm4",
+        "vm5"
+      ],
+      "metadata": {
+        "description": "Names of the virtual machines"
+      }
+    },
+    // Add other parameters for VM configuration here
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Compute/virtualMachines",
+      "name": "[concat(parameters('vmNames')[copyIndex()], copyIndex())]",
+      "copy": {
+        "name": "vmLoop",
+        "count": "[length(parameters('vmNames'))]"
+      },
+      "properties": {
+        // Define VM properties here
+      }
+    }
+  ]
+}
